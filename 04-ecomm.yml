@@ -1,0 +1,17 @@
+---
+- name: Deploy Web App
+  hosts: Node2
+  become: yes
+
+  tasks:
+  - name: Install Git
+    yum:
+      name: git
+      state: present
+
+  - name: Host code
+    git:
+      repo: https://github.com/Hermosun/Ansible-project.git
+      dest: /var/www/html
+
+...

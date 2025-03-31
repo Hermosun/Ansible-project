@@ -4,13 +4,20 @@
   become: yes
 
   tasks:
+
+  - name: Update package repositories
+    yum:
+      name: '*'
+      state: latest
+    when: ansible_distribution == "CentOS" or ansible_distribution == "Amazon"
+
   - name: Install HHTPD
     yum:
       name: httpd
       state: present
     when : ansible_distribution == "CentOS" or ansible_distribution == "Amazon"
 
-  - name: start httpd
+  - name: Start HTTPD
     service:
       name: httpd
       state: started
@@ -22,13 +29,18 @@
       enabled: yes
     when : ansible_distribution == "CentOS" or ansible_distribution == "Amazon"
 
+  - name: Update package repositories
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
   - name: Install Apache2
     apt:
       name: apache2
       state: present
     when : ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
-  - name: start apache2
+  - name: Start Apache2
     service:
       name: apache2
       state: started

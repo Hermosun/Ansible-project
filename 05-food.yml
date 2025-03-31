@@ -1,6 +1,6 @@
 ---
 - name: Deploy Web App
-  hosts: Node1
+  hosts: Node2
   become: yes
 
   tasks:
